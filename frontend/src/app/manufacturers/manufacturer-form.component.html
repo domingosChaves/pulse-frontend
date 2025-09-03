@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>{{ id ? 'Editar fabricante' : 'Novo fabricante' }}</h1>
+  <h1>{{ id ? "Editar fabricante" : "Novo fabricante" }}</h1>
 
   <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
     <div class="form-group">
@@ -15,16 +15,19 @@
       <label for="descricao">Descrição</label>
       <textarea id="descricao" formControlName="descricao" rows="4"></textarea>
       <div class="error" *ngIf="descricao?.touched && descricao?.invalid">
-        <div *ngIf="descricao?.errors?.maxlength">Máximo de 500 caracteres.</div>
+        <div *ngIf="descricao?.errors?.maxlength">
+          Máximo de 500 caracteres.
+        </div>
       </div>
     </div>
 
     <div class="actions">
       <button type="submit" [disabled]="saving">Salvar</button>
-      <button type="button" (click)="cancel()" [disabled]="saving">Cancelar</button>
+      <button type="button" (click)="cancel()" [disabled]="saving">
+        Cancelar
+      </button>
     </div>
 
     <div *ngIf="error" class="error">{{ error }}</div>
   </form>
 </div>
-

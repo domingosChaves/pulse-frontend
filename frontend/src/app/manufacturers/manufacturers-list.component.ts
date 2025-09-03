@@ -6,7 +6,7 @@ import { Manufacturer } from './manufacturer.model';
 @Component({
   selector: 'app-manufacturers-list',
   templateUrl: './manufacturers-list.component.html',
-  styleUrls: ['./manufacturers-list.component.scss']
+  styleUrls: ['./manufacturers-list.component.scss'],
 })
 export class ManufacturersListComponent implements OnInit {
   manufacturers: Manufacturer[] = [];
@@ -31,20 +31,24 @@ export class ManufacturersListComponent implements OnInit {
     this.loading = true;
     this.error = '';
     this.service.list().subscribe({
-      next: data => {
+      next: (data) => {
         this.manufacturers = data;
         this.loading = false;
       },
-      error: err => {
+      error: (err) => {
         this.error = 'Falha ao carregar fabricantes.';
         this.loading = false;
-      }
+      },
     });
   }
 
   get filtered(): Manufacturer[] {
     const term = this.searchTerm.trim().toLowerCase();
-    const filtered = term ? this.manufacturers.filter(m => (m.nome || '').toLowerCase().includes(term)) : this.manufacturers;
+    const filtered = term
+      ? this.manufacturers.filter((m) =>
+          (m.nome || '').toLowerCase().includes(term)
+        )
+      : this.manufacturers;
     return filtered;
   }
 
@@ -71,7 +75,7 @@ export class ManufacturersListComponent implements OnInit {
     if (!confirm('Confirma exclusão deste fabricante?')) return;
     this.service.delete(id).subscribe({
       next: () => this.load(),
-      error: () => alert('Falha ao excluir fabricante.')
+      error: () => alert('Falha ao excluir fabricante.'),
     });
   }
 }

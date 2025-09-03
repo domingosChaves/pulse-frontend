@@ -16,15 +16,26 @@ export class ApiService {
     return `${this.base}${p}`;
   }
 
-  get<T>(path: string, params?: HttpParams | { [param: string]: string | string[] }): Observable<T> {
+  get<T>(
+    path: string,
+    params?: HttpParams | { [param: string]: string | string[] }
+  ): Observable<T> {
     return this.http.get<T>(this.url(path), { params: params as any });
   }
 
-  post<T>(path: string, body: any, options?: { headers?: HttpHeaders }): Observable<T> {
+  post<T>(
+    path: string,
+    body: any,
+    options?: { headers?: HttpHeaders }
+  ): Observable<T> {
     return this.http.post<T>(this.url(path), body, options);
   }
 
-  put<T>(path: string, body: any, options?: { headers?: HttpHeaders }): Observable<T> {
+  put<T>(
+    path: string,
+    body: any,
+    options?: { headers?: HttpHeaders }
+  ): Observable<T> {
     return this.http.put<T>(this.url(path), body, options);
   }
 
@@ -32,4 +43,3 @@ export class ApiService {
     return this.http.delete<T>(this.url(path), options);
   }
 }
-

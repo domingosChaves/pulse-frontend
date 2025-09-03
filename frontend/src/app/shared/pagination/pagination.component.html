@@ -1,6 +1,5 @@
 <nav class="pagination">
-  <button (click)="prev()" [disabled]="page<=1">Anterior</button>
-  <span> Página {{page}} de {{totalPages}} </span>
-  <button (click)="next()" [disabled]="page>=totalPages">Próxima</button>
+  <button (click)="prev()" [disabled]="page <= 1">Anterior</button>
+  <span> Página {{ page }} de {{ totalPages }} </span>
+  <button (click)="next()" [disabled]="page >= totalPages">Próxima</button>
 </nav>
-

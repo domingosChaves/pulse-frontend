@@ -3,4 +3,3 @@ export interface Manufacturer {
   nome: string;
   descricao?: string;
 }
-
