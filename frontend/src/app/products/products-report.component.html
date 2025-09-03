@@ -1,0 +1,39 @@
+<div class="container">
+  <h1>Relatório de Produtos</h1>
+
+  <div class="filters">
+    <label>Fabricante</label>
+    <select [(ngModel)]="selectedManufacturerId" (ngModelChange)="onFilterChange()">
+      <option [ngValue]="null">Todos</option>
+      <option *ngFor="let f of manufacturers" [ngValue]="f.id">{{ f.nome }}</option>
+    </select>
+    <button (click)="clearFilter()">Limpar</button>
+    <button (click)="loadProducts()">Atualizar</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Carregando...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && groups.length === 0">Nenhum produto encontrado para o filtro.</div>
+
+  <section *ngFor="let g of groups" class="group">
+    <h2>{{ g.manufacturerName }}</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Descrição</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of g.items">
+          <td>{{ p.id }}</td>
+          <td>{{ p.nome }}</td>
+          <td>{{ p.descricao || '-' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+
