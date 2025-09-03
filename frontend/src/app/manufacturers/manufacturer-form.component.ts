@@ -7,7 +7,7 @@ import { Manufacturer } from './manufacturer.model';
 @Component({
   selector: 'app-manufacturer-form',
   templateUrl: './manufacturer-form.component.html',
-  styleUrls: ['./manufacturer-form.component.scss']
+  styleUrls: ['./manufacturer-form.component.scss'],
 })
 export class ManufacturerFormComponent implements OnInit {
   form: FormGroup;
@@ -23,7 +23,7 @@ export class ManufacturerFormComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       nome: ['', [Validators.required, Validators.maxLength(100)]],
-      descricao: ['', [Validators.maxLength(500)]]
+      descricao: ['', [Validators.maxLength(500)]],
     });
   }
 
@@ -38,7 +38,7 @@ export class ManufacturerFormComponent implements OnInit {
   load(id: number): void {
     this.service.get(id).subscribe({
       next: (m: Manufacturer) => this.form.patchValue(m),
-      error: () => this.error = 'Falha ao carregar fabricante.'
+      error: () => (this.error = 'Falha ao carregar fabricante.'),
     });
   }
 
@@ -51,7 +51,9 @@ export class ManufacturerFormComponent implements OnInit {
     this.error = '';
     const payload: Manufacturer = this.form.value;
 
-    const obs = this.id ? this.service.update(this.id, payload) : this.service.create(payload);
+    const obs = this.id
+      ? this.service.update(this.id, payload)
+      : this.service.create(payload);
     obs.subscribe({
       next: () => {
         this.saving = false;
@@ -60,7 +62,7 @@ export class ManufacturerFormComponent implements OnInit {
       error: () => {
         this.saving = false;
         this.error = 'Falha ao salvar fabricante.';
-      }
+      },
     });
   }
 
@@ -68,7 +70,10 @@ export class ManufacturerFormComponent implements OnInit {
     this.router.navigate(['/manufacturers']);
   }
 
-  get nome() { return this.form.get('nome'); }
-  get descricao() { return this.form.get('descricao'); }
+  get nome() {
+    return this.form.get('nome');
+  }
+  get descricao() {
+    return this.form.get('descricao');
+  }
 }
-

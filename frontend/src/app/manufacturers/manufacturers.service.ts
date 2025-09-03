@@ -1,33 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Manufacturer } from './manufacturer.model';
-import { environment } from '../../environments/environment';
+import { ApiService } from '../core/api.service';
 
 @Injectable({ providedIn: 'root' })
 export class ManufacturersService {
-  private baseUrl = `${environment.apiBaseUrl}/manufacturers`;
+  private resource = '/manufacturers';
 
-  constructor(private http: HttpClient) {}
+  constructor(private api: ApiService) {}
 
   list(): Observable<Manufacturer[]> {
-    return this.http.get<Manufacturer[]>(this.baseUrl);
+    return this.api.get<Manufacturer[]>(this.resource);
   }
 
   get(id: number): Observable<Manufacturer> {
-    return this.http.get<Manufacturer>(`${this.baseUrl}/${id}`);
+    return this.api.get<Manufacturer>(`${this.resource}/${id}`);
   }
 
   create(manufacturer: Manufacturer): Observable<Manufacturer> {
-    return this.http.post<Manufacturer>(this.baseUrl, manufacturer);
+    return this.api.post<Manufacturer>(this.resource, manufacturer);
   }
 
   update(id: number, manufacturer: Manufacturer): Observable<Manufacturer> {
-    return this.http.put<Manufacturer>(`${this.baseUrl}/${id}`, manufacturer);
+    return this.api.put<Manufacturer>(`${this.resource}/${id}`, manufacturer);
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+    return this.api.delete<void>(`${this.resource}/${id}`);
   }
 }
-

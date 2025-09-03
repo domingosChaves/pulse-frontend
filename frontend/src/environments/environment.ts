@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: '/api' // proxy para BFF (pulse-backend) enquanto em desenvolvimento
+  apiBaseUrl: '/api', // proxy para BFF (pulse-backend) enquanto em desenvolvimento
 };
 
 /*
