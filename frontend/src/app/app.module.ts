@@ -9,12 +9,16 @@ import { ManufacturersListComponent } from './manufacturers/manufacturers-list.c
 import { ManufacturerFormComponent } from './manufacturers/manufacturer-form.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { ProductsListComponent } from './products/products-list.component';
+import { ProductFormComponent } from './products/product-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ManufacturersListComponent,
     ManufacturerFormComponent,
+    ProductsListComponent,
+    ProductFormComponent,
   ],
   imports: [
     BrowserModule,
