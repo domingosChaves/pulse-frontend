@@ -1,0 +1,49 @@
+<div class="container">
+  <h1>Produtos</h1>
+
+  <div class="toolbar-actions">
+    <input placeholder="Buscar por nome..." [(ngModel)]="searchTerm" />
+    <div class="actions">
+      <button (click)="newProduct()">Novo produto</button>
+      <button (click)="load()">Atualizar</button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading">Carregando...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <table *ngIf="!loading && paged.length">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Fabricante</th>
+        <th>Descrição</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of paged">
+        <td>{{ p.id }}</td>
+        <td>{{ p.nome }}</td>
+        <td>{{ manufacturerName(p) || '-' }}</td>
+        <td>{{ p.descricao || '-' }}</td>
+        <td>
+          <button (click)="edit(p.id)">Editar</button>
+          <button (click)="confirmDelete(p.id)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && filtered.length === 0">
+    Nenhum produto encontrado.
+  </div>
+
+  <app-pagination
+    [page]="page"
+    [totalPages]="totalPages"
+    (pageChange)="changePage($event)"
+  ></app-pagination>
+</div>
+
