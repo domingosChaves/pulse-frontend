@@ -12,6 +12,10 @@ export class ManufacturersListComponent implements OnInit {
   manufacturers: Manufacturer[] = [];
   loading = false;
   error = '';
+  // busca e paginação
+  searchTerm = '';
+  page = 1;
+  pageSize = 10;
 
   constructor(private service: ManufacturersService, private router: Router) {}
 
@@ -36,6 +40,26 @@ export class ManufacturersListComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  get filtered(): Manufacturer[] {
+    const term = this.searchTerm.trim().toLowerCase();
+    const filtered = term ? this.manufacturers.filter(m => (m.nome || '').toLowerCase().includes(term)) : this.manufacturers;
+    return filtered;
+  }
+
+  get paged(): Manufacturer[] {
+    const start = (this.page - 1) * this.pageSize;
+    return this.filtered.slice(start, start + this.pageSize);
+  }
+
+  get totalPages(): number {
+    return Math.max(1, Math.ceil(this.filtered.length / this.pageSize));
+  }
+
+  changePage(p: number): void {
+    if (p < 1 || p > this.totalPages) return;
+    this.page = p;
   }
 
   edit(id?: number): void {

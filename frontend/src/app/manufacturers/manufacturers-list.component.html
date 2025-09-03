@@ -1,14 +1,18 @@
 <div class="container">
   <h1>Fabricantes</h1>
-  <div class="actions">
-    <button (click)="newManufacturer()">Novo fabricante</button>
-    <button (click)="load()">Atualizar</button>
+
+  <div class="toolbar-actions">
+    <input placeholder="Buscar por nome..." [(ngModel)]="searchTerm" />
+    <div class="actions">
+      <button (click)="newManufacturer()">Novo fabricante</button>
+      <button (click)="load()">Atualizar</button>
+    </div>
   </div>
 
   <div *ngIf="loading" class="loading">Carregando...</div>
   <div *ngIf="error" class="error">{{ error }}</div>
 
-  <table *ngIf="!loading && manufacturers.length">
+  <table *ngIf="!loading && paged.length">
     <thead>
       <tr>
         <th>ID</th>
@@ -18,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let m of manufacturers">
+      <tr *ngFor="let m of paged">
         <td>{{ m.id }}</td>
         <td>{{ m.nome }}</td>
         <td>{{ m.descricao || '-' }}</td>
@@ -30,5 +34,7 @@
     </tbody>
   </table>
 
-  <div *ngIf="!loading && manufacturers.length === 0">Nenhum fabricante encontrado.</div>
+  <div *ngIf="!loading && filtered.length === 0">Nenhum fabricante encontrado.</div>
+
+  <app-pagination [page]="page" [totalPages]="totalPages" (pageChange)="changePage($event)"></app-pagination>
 </div>
