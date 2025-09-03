@@ -1,0 +1,11 @@
+# Ignore reference backend folder
+pulse-backend/
+
+# Node and build
+node_modules/
+dist/
+
+# IDE
+.idea/
+.vscode/
+
