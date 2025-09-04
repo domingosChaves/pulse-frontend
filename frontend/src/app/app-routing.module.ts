@@ -4,6 +4,7 @@ import { ManufacturersListComponent } from './manufacturers/manufacturers-list.c
 import { ManufacturerFormComponent } from './manufacturers/manufacturer-form.component';
 import { ProductsListComponent } from './products/products-list.component';
 import { ProductFormComponent } from './products/product-form.component';
+import { ProductsReportComponent } from './products/products-report.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'manufacturers', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'products', component: ProductsListComponent },
   { path: 'products/new', component: ProductFormComponent },
   { path: 'products/edit/:id', component: ProductFormComponent },
+  { path: 'products/report', component: ProductsReportComponent },
 ];
 
 @NgModule({

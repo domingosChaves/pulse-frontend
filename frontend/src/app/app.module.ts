@@ -11,6 +11,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { ProductsListComponent } from './products/products-list.component';
 import { ProductFormComponent } from './products/product-form.component';
+import { ProductsReportComponent } from './products/products-report.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ProductFormComponent } from './products/product-form.component';
     ManufacturerFormComponent,
     ProductsListComponent,
     ProductFormComponent,
+    ProductsReportComponent,
   ],
   imports: [
     BrowserModule,
