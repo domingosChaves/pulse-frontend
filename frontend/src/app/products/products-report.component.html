@@ -2,12 +2,21 @@
   <h1>Relatório de Produtos</h1>
 
   <div class="filters">
-    <label>Fabricante</label>
-    <select [(ngModel)]="selectedManufacturerId" (ngModelChange)="onFilterChange()">
+    <label for="manuf">Fabricante</label>
+    <select id="manuf" [(ngModel)]="selectedManufacturerId" (ngModelChange)="onFilterChange()">
       <option [ngValue]="null">Todos</option>
       <option *ngFor="let f of manufacturers" [ngValue]="f.id">{{ f.nome }}</option>
     </select>
-    <button (click)="clearFilter()">Limpar</button>
+
+    <label for="pagesize">Itens por página</label>
+    <select id="pagesize" [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange()">
+      <option [ngValue]="5">5</option>
+      <option [ngValue]="10">10</option>
+      <option [ngValue]="20">20</option>
+      <option [ngValue]="50">50</option>
+    </select>
+
+    <button (click)="exportCsv()">Exportar CSV</button>
     <button (click)="loadProducts()">Atualizar</button>
   </div>
 
@@ -18,6 +27,7 @@
 
   <section *ngFor="let g of groups" class="group">
     <h2>{{ g.manufacturerName }}</h2>
+
     <table>
       <thead>
         <tr>
@@ -27,13 +37,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let p of g.items">
+        <tr *ngFor="let p of pagedItemsForGroup(g.manufacturerId)">
           <td>{{ p.id }}</td>
           <td>{{ p.nome }}</td>
           <td>{{ p.descricao || '-' }}</td>
         </tr>
       </tbody>
     </table>
+
+    <app-pagination
+      [page]="pageForGroup(g.manufacturerId)"
+      [totalPages]="totalPagesForGroup(g.manufacturerId)"
+      (pageChange)="setPageForGroup(g.manufacturerId, $event)"
+    ></app-pagination>
   </section>
 </div>
-

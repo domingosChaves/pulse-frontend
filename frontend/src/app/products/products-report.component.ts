@@ -24,6 +24,10 @@ export class ProductsReportComponent implements OnInit {
   loading = false;
   error = '';
 
+  // paginação por grupo
+  pageSize = 10;
+  private groupPage: Record<string, number> = {};
+
   constructor(
     private productsService: ProductsService,
     private manufacturersService: ManufacturersService
@@ -81,6 +85,9 @@ export class ProductsReportComponent implements OnInit {
     for (const g of this.groups) {
       g.items.sort((x, y) => (x.nome || '').localeCompare(y.nome || ''));
     }
+
+    // resetar páginas se filtro mudou
+    this.groupPage = {};
   }
 
   onFilterChange(): void {
@@ -92,6 +99,12 @@ export class ProductsReportComponent implements OnInit {
     this.applyFilterAndGroup();
   }
 
+  onPageSizeChange(): void {
+    // ao mudar pageSize, voltar cada grupo para página 1
+    this.groupPage = {};
+  }
+
+  // helpers de fabricante
   getManufacturerId(p: Product): number | null {
     return (
       p.fabricanteId ||
@@ -109,5 +122,66 @@ export class ProductsReportComponent implements OnInit {
       ''
     );
   }
-}
 
+  // paginação por grupo
+  private keyFor(id: number | null): string {
+    return id === null ? 'null' : String(id);
+  }
+
+  pageForGroup(id: number | null): number {
+    const k = this.keyFor(id);
+    return this.groupPage[k] || 1;
+  }
+
+  setPageForGroup(id: number | null, p: number): void {
+    const total = this.totalPagesForGroup(id);
+    if (p < 1 || p > total) return;
+    const k = this.keyFor(id);
+    this.groupPage[k] = p;
+  }
+
+  totalPagesForGroup(id: number | null): number {
+    const g = this.groups.find((x) => x.manufacturerId === id);
+    if (!g) return 1;
+    return Math.max(1, Math.ceil(g.items.length / this.pageSize));
+  }
+
+  pagedItemsForGroup(id: number | null): Product[] {
+    const g = this.groups.find((x) => x.manufacturerId === id);
+    if (!g) return [];
+    const page = this.pageForGroup(id);
+    const start = (page - 1) * this.pageSize;
+    return g.items.slice(start, start + this.pageSize);
+  }
+
+  // exportação CSV
+  exportCsv(): void {
+    const rows: Array<Array<string>> = [];
+    // cabeçalho
+    rows.push(['Fabricante', 'ID', 'Nome', 'Descrição']);
+    // dados
+    for (const p of this.filtered) {
+      const manuf = this.getManufacturerName(p) || '';
+      rows.push([
+        manuf,
+        String(p.id ?? ''),
+        p.nome ?? '',
+        p.descricao ?? '',
+      ]);
+    }
+    const csv = rows.map((r) => r.map(this.csvEscape).join(',')).join('\r\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'relatorio-produtos.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  private csvEscape(value: string): string {
+    const needsQuote = /[",\n]/.test(value);
+    let v = value.replace(/"/g, '""');
+    return needsQuote ? `"${v}"` : v;
+  }
+}
