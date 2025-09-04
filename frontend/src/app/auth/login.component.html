@@ -1,0 +1,43 @@
+<div class="container">
+  <h1>Entrar</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+      <label for="username">Usuário</label>
+      <input
+        id="username"
+        type="text"
+        formControlName="username"
+        placeholder="Seu usuário"
+      />
+    </div>
+
+    <div>
+      <label for="password">Senha</label>
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        placeholder="Sua senha"
+      />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="primary" [disabled]="saving || form.invalid">
+        Entrar
+      </button>
+    </div>
+
+    <div class="error" *ngIf="error" role="alert">{{ error }}</div>
+  </form>
+
+  <div class="group">
+    <div class="group-header">
+      <h2>Ou entre com</h2>
+    </div>
+    <div class="form-actions">
+      <button type="button" (click)="loginWith('google')">Google</button>
+      <button type="button" (click)="loginWith('github')">GitHub</button>
+    </div>
+  </div>
+</div>

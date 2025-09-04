@@ -8,6 +8,8 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 function genCorrelationId(): string {
   // UUID v4 simples (sem dependências)
@@ -20,6 +22,8 @@ function genCorrelationId(): string {
 
 @Injectable()
 export class ApiHttpInterceptor implements HttpInterceptor {
+  constructor(private router: Router, private auth: AuthService) {}
+
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -46,9 +50,14 @@ export class ApiHttpInterceptor implements HttpInterceptor {
     return next.handle(cloned).pipe(
       catchError((err: any) => {
         if (err instanceof HttpErrorResponse) {
-          // Log amigável e repasse do erro
           const payload = err.error;
-          if (err.status === 400 || err.status === 404) {
+          if (err.status === 401 || err.status === 403) {
+            // Sessão inválida/expirada: limpar e redirecionar para login
+            const current = this.router.url;
+            this.auth.setRedirectAfterLogin(current);
+            this.auth.logout();
+            this.router.navigateByUrl('/login');
+          } else if (err.status === 400 || err.status === 404) {
             console.error('Erro API', {
               status: err.status,
               path: payload?.path,
