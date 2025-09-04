@@ -22,12 +22,11 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('frontend');
   });
 
-  it('should render title', () => {
+  it('should render header title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain(
-      'frontend app is running!'
-    );
+    const compiled = fixture.nativeElement as HTMLElement;
+    const headerTitle = compiled.querySelector('header h1');
+    expect(headerTitle?.textContent).toContain('Pulse');
   });
 });

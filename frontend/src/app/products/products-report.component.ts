@@ -115,12 +115,19 @@ export class ProductsReportComponent implements OnInit {
   }
 
   getManufacturerName(p: Product): string {
-    return (
+    const direct = (
       p.fabricanteNome ||
       (p.fabricante && p.fabricante.nome) ||
       (p.manufacturer && p.manufacturer.nome) ||
       ''
     );
+    if (direct) return direct;
+    const id = this.getManufacturerId(p);
+    if (id != null) {
+      const found = this.manufacturers.find(m => m.id === id);
+      if (found) return found.nome || '';
+    }
+    return '';
   }
 
   // paginação por grupo
