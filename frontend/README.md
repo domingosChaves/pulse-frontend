@@ -22,13 +22,13 @@ Build da imagem (na raiz do repositório):
 docker build -t pulse-frontend:latest -f frontend/Dockerfile frontend
 ```
 
-Executar o container (porta 8080 -> 80):
+Executar o container (porta 3000 -> 80):
 
 ```
-docker run --rm -p 8080:80 pulse-frontend:latest
+docker run --rm -p 3000:80 pulse-frontend:latest
 ```
 
-Acesse: http://localhost:8080
+Acesse: http://localhost:3000
 
 ## Executar com Docker Compose
 
@@ -38,7 +38,7 @@ Na raiz do repositório:
 docker compose up --build
 ```
 
-Isso expõe a aplicação em http://localhost:8080. Para subir com o backend, use o exemplo comentado de serviço `backend` em `docker-compose.yml`.
+Isso expõe a aplicação em http://localhost:3000. Para subir com o backend, use o exemplo comentado de serviço `backend` em `docker-compose.yml`.
 
 ---
 

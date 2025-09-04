@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     image: pulse-frontend:latest
     ports:
-      - "8080:80"
+      - "3000:80"
     # Se você subir o backend junto neste compose, descomente a dependência abaixo
     # depends_on:
     #   - backend
