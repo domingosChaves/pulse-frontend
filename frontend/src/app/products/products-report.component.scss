@@ -1,13 +1,7 @@
-/* estilos do relatório de produtos (placeholder) */
-.container {
-  display: block;
-}
-.filters {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin: 8px 0 16px;
-}
-.group {
-  margin-bottom: 24px;
+/* estilos do relatório de produtos (alinhado ao global) */
+/* Herda layout de .container, .toolbar-actions, .group e .table-responsive do styles.scss */
+
+/* Ajustes locais mínimos (se necessário) */
+.group small {
+  font-weight: normal;
 }
