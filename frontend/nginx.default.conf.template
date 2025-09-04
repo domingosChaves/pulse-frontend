@@ -2,14 +2,11 @@ server {
   listen 80;
   server_name _;
 
-  # DNS do Docker para resolver nomes de serviços em tempo de requisição
+  # Resolver DNS do Docker para nomes de serviço; mantém start mesmo sem o backend pronto
   resolver 127.0.0.11 ipv6=off valid=30s;
 
-  # Upstream padrão: porta publicada do backend no host do Docker Desktop (Windows/macOS)
-  set $backend_upstream "host.docker.internal:8081";
-  # Alternativas (descomente e ajuste se usar rede Docker compartilhada):
-  # set $backend_upstream "pulse-backend:8081";
-  # set $backend_upstream "pulse_app:8081";
+  # Upstream parametrizável (ex.: host.docker.internal:8081, pulse-backend:8081, pulse_app:8081)
+  set $backend_upstream "${BACKEND_UPSTREAM}";
 
   # Raiz com os artefatos estáticos gerados pelo Angular
   root /usr/share/nginx/html;
@@ -40,7 +37,6 @@ server {
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_read_timeout 60s;
     proxy_connect_timeout 5s;
-    # Não cachear respostas da API
     add_header Cache-Control "no-cache, no-store, must-revalidate";
     add_header Pragma "no-cache";
     add_header Expires "0";
@@ -51,3 +47,4 @@ server {
     try_files $uri $uri/ /index.html;
   }
 }
+
