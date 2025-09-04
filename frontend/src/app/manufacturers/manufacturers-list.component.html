@@ -9,11 +9,12 @@
     </div>
   </div>
 
-  <div *ngIf="loading" class="loading">Carregando...</div>
-  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="loading" class="loading" aria-live="polite">Carregando...</div>
+  <div *ngIf="error" class="error" role="alert">{{ error }}</div>
 
   <div class="table-responsive" *ngIf="!loading && paged.length">
     <table>
+      <caption class="sr-only">Lista de fabricantes</caption>
       <thead>
         <tr>
           <th>ID</th>
@@ -26,17 +27,17 @@
         <tr *ngFor="let m of paged">
           <td>{{ m.id }}</td>
           <td>{{ m.nome }}</td>
-          <td>{{ m.descricao || "-" }}</td>
+          <td>{{ m.descricao || '-' }}</td>
           <td>
-            <button (click)="edit(m.id)">Editar</button>
-            <button (click)="confirmDelete(m.id)">Excluir</button>
+            <button (click)="edit(m.id)" [attr.aria-label]="'Editar fabricante ' + (m.nome || m.id)">Editar</button>
+            <button (click)="confirmDelete(m.id)" [attr.aria-label]="'Excluir fabricante ' + (m.nome || m.id)">Excluir</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <div *ngIf="!loading && filtered.length === 0">
+  <div *ngIf="!loading && filtered.length === 0" aria-live="polite">
     Nenhum fabricante encontrado.
   </div>
 
