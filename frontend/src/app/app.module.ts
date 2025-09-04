@@ -12,6 +12,8 @@ import { SharedModule } from './shared/shared.module';
 import { ProductsListComponent } from './products/products-list.component';
 import { ProductFormComponent } from './products/product-form.component';
 import { ProductsReportComponent } from './products/products-report.component';
+import { LoginComponent } from './auth/login.component';
+import { OAuthCallbackComponent } from './auth/oauth-callback.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { ProductsReportComponent } from './products/products-report.component';
     ProductsListComponent,
     ProductFormComponent,
     ProductsReportComponent,
+    LoginComponent,
+    OAuthCallbackComponent,
   ],
   imports: [
     BrowserModule,
