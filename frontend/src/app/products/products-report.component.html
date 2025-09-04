@@ -26,7 +26,10 @@
   <div *ngIf="!loading && groups.length === 0">Nenhum produto encontrado para o filtro.</div>
 
   <section *ngFor="let g of groups" class="group">
-    <h2>{{ g.manufacturerName }}</h2>
+    <div class="group-header">
+      <h2>{{ g.manufacturerName }} <small>({{ g.items.length }} itens)</small></h2>
+      <button (click)="exportGroupCsv(g.manufacturerId)">Exportar CSV (grupo)</button>
+    </div>
 
     <table>
       <thead>
