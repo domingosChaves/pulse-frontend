@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Relatório de Produtos</h1>
 
-  <div class="filters">
+  <div class="toolbar-actions">
     <label for="manuf">Fabricante</label>
     <select
       id="manuf"
@@ -26,8 +26,10 @@
       <option [ngValue]="50">50</option>
     </select>
 
-    <button (click)="exportCsv()">Exportar CSV</button>
-    <button (click)="loadProducts()">Atualizar</button>
+    <div class="actions">
+      <button (click)="exportCsv()">Exportar CSV</button>
+      <button (click)="loadProducts()">Atualizar</button>
+    </div>
   </div>
 
   <div *ngIf="loading" class="loading" aria-live="polite">Carregando...</div>

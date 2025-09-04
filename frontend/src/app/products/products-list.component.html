@@ -2,9 +2,14 @@
   <h1>Produtos</h1>
 
   <div class="toolbar-actions">
-    <input placeholder="Buscar por nome..." [(ngModel)]="searchTerm" />
+    <label for="search-products" class="sr-only">Buscar por nome</label>
+    <input
+      id="search-products"
+      placeholder="Buscar por nome..."
+      [(ngModel)]="searchTerm"
+    />
     <div class="actions">
-      <button (click)="newProduct()">Novo produto</button>
+      <button class="primary" (click)="newProduct()">Novo produto</button>
       <button (click)="load()">Atualizar</button>
     </div>
   </div>

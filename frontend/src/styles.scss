@@ -11,6 +11,43 @@
   --space-5: 24px;
   --space-6: 32px;
   --border-color: #e5e7eb;
+  --text-color: #1f2937;
+  --muted-color: #6b7280;
+  --primary: #1976d2;
+  --primary-hover: #1257a3;
+  --bg-muted: #f9fafb;
+  --radius: 6px;
+}
+
+/* reset/typografia base (leve) */
+html,
+body,
+:host {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: var(--text-color);
+  background: #fff;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: var(--space-4) 0 var(--space-2);
+}
+p {
+  margin: 0 0 var(--space-3);
+}
+small {
+  color: var(--muted-color);
 }
 
 /* layout base */
@@ -19,6 +56,10 @@
   max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 var(--space-4);
+  box-sizing: border-box;
+}
+.app-main {
+  padding: var(--space-5) 0;
 }
 
 /* header e navegação */
@@ -26,7 +67,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: #1976d2;
+  background: var(--primary);
   color: #fff;
 }
 .app-header .container {
@@ -35,13 +76,27 @@
   justify-content: space-between;
   min-height: 56px;
 }
+.app-header h1 {
+  font-size: 18px;
+  margin: 0;
+}
 .app-header nav {
   display: flex;
-  gap: var(--space-3);
+  gap: var(--space-2);
+  flex-wrap: wrap;
 }
 .app-header nav a {
   color: #fff;
   padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius);
+  transition: background 0.2s ease;
+}
+.app-header nav a:hover,
+.app-header nav a:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+}
+.app-header nav a.active {
+  background: rgba(255, 255, 255, 0.25);
 }
 
 /* barras de ferramentas (busca + acoes) */
@@ -82,6 +137,12 @@
   padding: var(--space-3);
   border-bottom: 1px solid var(--border-color);
 }
+.table-responsive thead th {
+  background: var(--bg-muted);
+}
+.table-responsive tbody tr:nth-child(even) {
+  background: #fcfcfd;
+}
 
 /* formularios */
 form {
@@ -105,6 +166,56 @@ form button {
   display: flex;
   gap: var(--space-2);
   flex-wrap: wrap;
+}
+
+/* inputs e controles base */
+input,
+select,
+textarea {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--text-color);
+}
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #0ea5e9;
+  outline-offset: 1px;
+}
+::placeholder {
+  color: var(--muted-color);
+  opacity: 0.9;
+}
+
+/* botoes base */
+button,
+.btn,
+a.button {
+  min-height: 40px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background: #f8fafc;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+button:hover,
+.btn:hover,
+a.button:hover {
+  background: #eef2f7;
+}
+button.primary,
+.btn.primary {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+button.primary:hover,
+.btn.primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
 /* grupos do relatorio */

@@ -10,7 +10,7 @@ Este é o SPA (Single Page Application) do Pulse, responsável pela interface we
 
 - SPA Angular acessa o backend via `/api`.
 - Desenvolvimento (localhost): o proxy do Angular encaminha `http://localhost:4200/api/*` → `http://localhost:8081/api/*`.
-- Produção (Docker): o Nginx do container encaminha `/api/*` → `http://backend:8081/` na mesma rede Docker.
+- Produção (Docker): o Nginx do container encaminha `/api/*` → `http://backend:8081` na mesma rede Docker.
 - Porta do frontend no Docker (host): `3000` (mapeada para `80` do container).
 
 ## Tecnologias e Métodos Aplicados
@@ -153,6 +153,24 @@ Acesse: `http://localhost:3000`.
 - Husky + lint-staged: roda formatação no pre-commit.
 - Prettier + TSLint (legado) padronizam estilo.
 - CSV export: componentes de produtos geram relatórios em CSV (geral e por grupo).
+
+## Guia de Estilos e Responsividade (novo)
+
+- Estilos globais consolidados em `src/styles.scss` com variáveis CSS (`:root`) para espaçamento, cores e bordas.
+- Header fixo `.app-header` com navegação que destaca link ativo (`routerLinkActive="active"`).
+- Layout responsivo:
+  - `.container` com largura máxima e padding lateral.
+  - `.toolbar-actions` para filtros e ações com quebra automática em telas pequenas.
+  - `.table-responsive` com rolagem horizontal para tabelas estreitas.
+  - Inputs e botões padronizados com estado hover/focus e tamanhos de toque adequados.
+- Acessibilidade: `.sr-only` para legendas e `:focus-visible` visível em elementos interativos.
+
+## Changelog de UI/CSS (resumo)
+
+- Refatorado `app.component.html` para remover estilos inline legados; estilos migrados para `styles.scss`.
+- Padronizados botões primários (classe `primary`) para ações de criação em listas de Fabricantes e Produtos.
+- Relatório de Produtos atualizado para usar `.toolbar-actions` e herdar estilos globais; SCSS local simplificado.
+- Tabelas com cabeçalho em fundo sutil e linhas zebradas para melhor leitura.
 
 ## Troubleshooting
 

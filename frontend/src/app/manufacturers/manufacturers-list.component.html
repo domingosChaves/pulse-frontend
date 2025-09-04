@@ -2,9 +2,16 @@
   <h1>Fabricantes</h1>
 
   <div class="toolbar-actions">
-    <input placeholder="Buscar por nome..." [(ngModel)]="searchTerm" />
+    <label for="search-manufacturers" class="sr-only">Buscar por nome</label>
+    <input
+      id="search-manufacturers"
+      placeholder="Buscar por nome..."
+      [(ngModel)]="searchTerm"
+    />
     <div class="actions">
-      <button (click)="newManufacturer()">Novo fabricante</button>
+      <button class="primary" (click)="newManufacturer()">
+        Novo fabricante
+      </button>
       <button (click)="load()">Atualizar</button>
     </div>
   </div>
