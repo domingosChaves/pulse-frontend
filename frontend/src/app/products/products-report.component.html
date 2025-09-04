@@ -20,33 +20,36 @@
     <button (click)="loadProducts()">Atualizar</button>
   </div>
 
-  <div *ngIf="loading" class="loading">Carregando...</div>
-  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="loading" class="loading" aria-live="polite">Carregando...</div>
+  <div *ngIf="error" class="error" role="alert">{{ error }}</div>
 
-  <div *ngIf="!loading && groups.length === 0">Nenhum produto encontrado para o filtro.</div>
+  <div *ngIf="!loading && groups.length === 0" aria-live="polite">Nenhum produto encontrado para o filtro.</div>
 
-  <section *ngFor="let g of groups" class="group">
+  <section *ngFor="let g of groups" class="group" role="region" [attr.aria-labelledby]="'group-title-' + (g.manufacturerId == null ? 'sem' : g.manufacturerId)">
     <div class="group-header">
-      <h2>{{ g.manufacturerName }} <small>({{ g.items.length }} itens)</small></h2>
-      <button (click)="exportGroupCsv(g.manufacturerId)">Exportar CSV (grupo)</button>
+      <h2 [id]="'group-title-' + (g.manufacturerId == null ? 'sem' : g.manufacturerId)">{{ g.manufacturerName }} <small>({{ g.items.length }} itens)</small></h2>
+      <button (click)="exportGroupCsv(g.manufacturerId)" [attr.aria-label]="'Exportar CSV do grupo ' + g.manufacturerName">Exportar CSV (grupo)</button>
     </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Descrição</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let p of pagedItemsForGroup(g.manufacturerId)">
-          <td>{{ p.id }}</td>
-          <td>{{ p.nome }}</td>
-          <td>{{ p.descricao || '-' }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table>
+        <caption class="sr-only">Produtos do fabricante {{ g.manufacturerName }}</caption>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of pagedItemsForGroup(g.manufacturerId)">
+            <td>{{ p.id }}</td>
+            <td>{{ p.nome }}</td>
+            <td>{{ p.descricao || '-' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <app-pagination
       [page]="pageForGroup(g.manufacturerId)"
