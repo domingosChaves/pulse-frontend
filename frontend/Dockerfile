@@ -13,8 +13,11 @@ RUN npx ng build --configuration=production
 # Etapa 2: imagem final com Nginx servindo os estáticos
 FROM nginx:1.25-alpine
 
-# Configuração do Nginx para SPA (fallback para index.html)
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Definir upstream padrão (pode ser sobrescrito em tempo de execução)
+ENV BACKEND_UPSTREAM=host.docker.internal:8081
+
+# Template do Nginx processado pelo entrypoint (envsubst) -> /etc/nginx/conf.d/default.conf
+COPY nginx.default.conf.template /etc/nginx/templates/default.conf.template
 
 # Copia o build gerado na etapa anterior
 COPY --from=build /app/dist/frontend /usr/share/nginx/html

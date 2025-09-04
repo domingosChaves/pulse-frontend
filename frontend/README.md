@@ -75,15 +75,44 @@ Pré-requisitos: Node 18+, npm.
 
 ## Como Executar (Produção com Docker/Nginx)
 
+### Upstream do backend (variável BACKEND_UPSTREAM)
+
+A imagem usa um template do Nginx processado em runtime (envsubst) com a variável `BACKEND_UPSTREAM` para definir o destino de `/api`. Exemplos:
+
+- Backend no host (Windows/macOS – Docker Desktop): `BACKEND_UPSTREAM=host.docker.internal:8081` (padrão)
+- Backend no host (Linux): usar host-gateway no compose
+- Backend em rede Docker (mesmo Compose): `BACKEND_UPSTREAM=pulse-backend:8081` (ou o nome/porta do seu serviço)
+
+### Docker direto
+
 Build e run direto com Docker (na raiz do repo):
 - `docker build -t pulse-frontend:latest -f frontend/Dockerfile frontend`
 - `docker run --rm -p 3000:80 pulse-frontend:latest`
 - Acesse: `http://localhost:3000`
 
-Com Docker Compose (na raiz do repo):
-- `docker compose up --build`
-- Acesse: `http://localhost:3000`
-- Para subir o backend junto, use o exemplo comentado no `docker-compose.yml` e garanta o nome do serviço `backend` (porta `8081`).
+### Docker Compose (recomendado)
+
+Na raiz do repositório:
+
+```
+# backend no host (Windows/macOS) – padrão
+docker compose build --no-cache frontend
+docker compose up -d
+
+# backend no host (Linux) – se host.docker.internal não resolver, habilite host-gateway
+# edite docker-compose.yml e descomente:
+# extra_hosts:
+#   - "host.docker.internal:host-gateway"
+# então rode:
+docker compose build --no-cache frontend
+docker compose up -d
+
+# backend no mesmo compose (serviço pulse-backend)
+# rode com variável ou ajuste no arquivo:
+BACKEND_UPSTREAM=pulse-backend:8081 docker compose up -d --build
+```
+
+Acesse: `http://localhost:3000`.
 
 ## Testes e Cobertura
 
