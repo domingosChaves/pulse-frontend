@@ -5,7 +5,7 @@ import { ApiService } from '../core/api.service';
 
 @Injectable({ providedIn: 'root' })
 export class ManufacturersService {
-  private resource = '/manufacturers';
+  private resource = '/fabricantes';
 
   constructor(private api: ApiService) {}
 

@@ -5,11 +5,11 @@ Este projeto usa Angular e pode ser executado via Docker/Nginx para produção.
 ## Integração com backend (DEV e Produção)
 
 - Base da API no frontend: `/api` (definido em `environment.ts` e `environment.prod.ts`).
-- Desenvolvimento (ng serve): o arquivo `proxy.conf.json` encaminha `/api` para `http://localhost:8080` e remove o prefixo `/api`.
+- Desenvolvimento (ng serve): o arquivo `proxy.conf.json` encaminha `/api` para `http://localhost:8081` e mantém o prefixo `/api`.
   - Ajuste `target` caso seu backend rode em outra porta.
   - Comando já configurado no `npm start` para usar o proxy.
-- Produção (Docker + Nginx): o `nginx.conf` faz proxy de `/api` para `http://backend:8080/` dentro do mesmo network Docker.
-  - Se o backend estiver fora do Docker, pode usar `host.docker.internal:8080` (alternativa comentada no arquivo).
+- Produção (Docker + Nginx): o `nginx.conf` faz proxy de `/api` para `http://backend:8081/` dentro do mesmo network Docker.
+  - Se o backend estiver fora do Docker, pode usar `host.docker.internal:8081` (alternativa comentada no arquivo).
   - Garanta que o serviço Docker do backend se chame `backend` (ou ajuste o `proxy_pass`).
 
 ## Executar com Docker

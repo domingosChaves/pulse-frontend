@@ -10,11 +10,15 @@ import { Manufacturer } from '../manufacturers/manufacturer.model';
 
 class MockProductsService {
   constructor(private data: Product[] = []) {}
-  list() { return of(this.data); }
+  list() {
+    return of(this.data);
+  }
 }
 class MockManufacturersService {
   constructor(private data: Manufacturer[] = []) {}
-  list() { return of(this.data); }
+  list() {
+    return of(this.data);
+  }
 }
 
 describe('Componente de Relatório de Produtos', () => {
@@ -37,7 +41,10 @@ describe('Componente de Relatório de Produtos', () => {
       imports: [FormsModule],
       providers: [
         { provide: ProductsService, useValue: new MockProductsService(prods) },
-        { provide: ManufacturersService, useValue: new MockManufacturersService(mans) },
+        {
+          provide: ManufacturersService,
+          useValue: new MockManufacturersService(mans),
+        },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -49,7 +56,7 @@ describe('Componente de Relatório de Produtos', () => {
 
   it('deve agrupar produtos por fabricante', () => {
     expect(component.groups.length).toBe(2);
-    const names = component.groups.map(g => g.manufacturerName);
+    const names = component.groups.map((g) => g.manufacturerName);
     expect(names).toContain('Fab A');
     expect(names).toContain('Fab B');
   });

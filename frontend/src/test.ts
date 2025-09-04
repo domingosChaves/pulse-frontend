@@ -16,9 +16,13 @@ getTestBed().initTestEnvironment(
 );
 
 // Descobrir e carregar todos os arquivos *.spec.ts
-const webpackContext = (require && require.context) ?
-  require.context('./', true, /\.spec\.ts$/) :
-  // fallback para Webpack 5 via import.meta.webpackContext
-  (import.meta as any).webpackContext('./', { recursive: true, regExp: /\.spec\.ts$/ });
+const webpackContext =
+  require && require.context
+    ? require.context('./', true, /\.spec\.ts$/)
+    : // fallback para Webpack 5 via import.meta.webpackContext
+      (import.meta as any).webpackContext('./', {
+        recursive: true,
+        regExp: /\.spec\.ts$/,
+      });
 
 webpackContext.keys().forEach(webpackContext);

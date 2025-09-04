@@ -5,7 +5,7 @@ import { Product } from './product.model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
-  private resource = '/products';
+  private resource = '/produtos';
 
   constructor(private api: ApiService) {}
 
@@ -28,5 +28,22 @@ export class ProductsService {
   delete(id: number): Observable<void> {
     return this.api.delete<void>(`${this.resource}/${id}`);
   }
-}
 
+  // Paginação: /produtos/paged?nome=&fabricanteId=&page=&size=&sort=
+  paged(params: {
+    nome?: string;
+    fabricanteId?: number;
+    page?: number;
+    size?: number;
+    sort?: string;
+  }): Observable<any> {
+    return this.api.get<any>(`${this.resource}/paged`, params as any);
+  }
+
+  // Relatório agrupado por nome do fabricante
+  report(): Observable<Record<string, Product[]>> {
+    return this.api.get<Record<string, Product[]>>(
+      `${this.resource}/relatorio`
+    );
+  }
+}

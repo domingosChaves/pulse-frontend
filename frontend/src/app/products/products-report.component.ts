@@ -115,16 +115,15 @@ export class ProductsReportComponent implements OnInit {
   }
 
   getManufacturerName(p: Product): string {
-    const direct = (
+    const direct =
       p.fabricanteNome ||
       (p.fabricante && p.fabricante.nome) ||
       (p.manufacturer && p.manufacturer.nome) ||
-      ''
-    );
+      '';
     if (direct) return direct;
     const id = this.getManufacturerId(p);
     if (id != null) {
-      const found = this.manufacturers.find(m => m.id === id);
+      const found = this.manufacturers.find((m) => m.id === id);
       if (found) return found.nome || '';
     }
     return '';
@@ -169,12 +168,7 @@ export class ProductsReportComponent implements OnInit {
     // dados
     for (const p of this.filtered) {
       const manuf = this.getManufacturerName(p) || '';
-      rows.push([
-        manuf,
-        String(p.id ?? ''),
-        p.nome ?? '',
-        p.descricao ?? '',
-      ]);
+      rows.push([manuf, String(p.id ?? ''), p.nome ?? '', p.descricao ?? '']);
     }
     const csv = rows.map((r) => r.map(this.csvEscape).join(',')).join('\r\n');
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -194,19 +188,16 @@ export class ProductsReportComponent implements OnInit {
     rows.push(['Fabricante', 'ID', 'Nome', 'Descrição']);
     for (const p of g.items) {
       const manuf = g.manufacturerName || '';
-      rows.push([
-        manuf,
-        String(p.id ?? ''),
-        p.nome ?? '',
-        p.descricao ?? '',
-      ]);
+      rows.push([manuf, String(p.id ?? ''), p.nome ?? '', p.descricao ?? '']);
     }
     const csv = rows.map((r) => r.map(this.csvEscape).join(',')).join('\r\n');
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `relatorio-produtos-${(g.manufacturerName || 'sem-fabricante').replace(/\s+/g, '-').toLowerCase()}.csv`;
+    a.download = `relatorio-produtos-${(g.manufacturerName || 'sem-fabricante')
+      .replace(/\s+/g, '-')
+      .toLowerCase()}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   }

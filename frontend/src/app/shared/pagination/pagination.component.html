@@ -1,5 +1,13 @@
 <nav class="pagination" role="navigation" aria-label="Paginação de resultados">
-  <button (click)="prev()" [disabled]="page <= 1" aria-label="Página anterior">Anterior</button>
+  <button (click)="prev()" [disabled]="page <= 1" aria-label="Página anterior">
+    Anterior
+  </button>
   <span aria-live="polite"> Página {{ page }} de {{ totalPages }} </span>
-  <button (click)="next()" [disabled]="page >= totalPages" aria-label="Próxima página">Próxima</button>
+  <button
+    (click)="next()"
+    [disabled]="page >= totalPages"
+    aria-label="Próxima página"
+  >
+    Próxima
+  </button>
 </nav>

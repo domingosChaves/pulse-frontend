@@ -14,7 +14,9 @@
 
   <div class="table-responsive" *ngIf="!loading && paged.length">
     <table>
-      <caption class="sr-only">Lista de produtos</caption>
+      <caption class="sr-only">
+        Lista de produtos
+      </caption>
       <thead>
         <tr>
           <th>ID</th>
@@ -28,11 +30,21 @@
         <tr *ngFor="let p of paged">
           <td>{{ p.id }}</td>
           <td>{{ p.nome }}</td>
-          <td>{{ manufacturerName(p) || '-' }}</td>
-          <td>{{ p.descricao || '-' }}</td>
+          <td>{{ manufacturerName(p) || "-" }}</td>
+          <td>{{ p.descricao || "-" }}</td>
           <td>
-            <button (click)="edit(p.id)" [attr.aria-label]="'Editar produto ' + (p.nome || p.id)">Editar</button>
-            <button (click)="confirmDelete(p.id)" [attr.aria-label]="'Excluir produto ' + (p.nome || p.id)">Excluir</button>
+            <button
+              (click)="edit(p.id)"
+              [attr.aria-label]="'Editar produto ' + (p.nome || p.id)"
+            >
+              Editar
+            </button>
+            <button
+              (click)="confirmDelete(p.id)"
+              [attr.aria-label]="'Excluir produto ' + (p.nome || p.id)"
+            >
+              Excluir
+            </button>
           </td>
         </tr>
       </tbody>

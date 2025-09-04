@@ -8,4 +8,3 @@ export interface Product {
   manufacturer?: { id: number; nome: string } | null;
   fabricante?: { id: number; nome: string } | null;
 }
-
