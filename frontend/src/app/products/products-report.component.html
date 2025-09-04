@@ -31,22 +31,24 @@
       <button (click)="exportGroupCsv(g.manufacturerId)">Exportar CSV (grupo)</button>
     </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Descrição</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let p of pagedItemsForGroup(g.manufacturerId)">
-          <td>{{ p.id }}</td>
-          <td>{{ p.nome }}</td>
-          <td>{{ p.descricao || '-' }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of pagedItemsForGroup(g.manufacturerId)">
+            <td>{{ p.id }}</td>
+            <td>{{ p.nome }}</td>
+            <td>{{ p.descricao || '-' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <app-pagination
       [page]="pageForGroup(g.manufacturerId)"

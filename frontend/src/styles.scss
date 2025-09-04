@@ -1,1 +1,135 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Estilos globais e responsividade */
+
+:root {
+  --container-max: 1200px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --border-color: #e5e7eb;
+}
+
+/* layout base */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+/* header e navegação */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #1976d2;
+  color: #fff;
+}
+.app-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+}
+.app-header nav {
+  display: flex;
+  gap: var(--space-3);
+}
+.app-header nav a {
+  color: #fff;
+  padding: var(--space-2) var(--space-3);
+}
+
+/* barras de ferramentas (busca + acoes) */
+.toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  margin: var(--space-4) 0;
+}
+.toolbar-actions input[type="text"],
+.toolbar-actions input:not([type]),
+.toolbar-actions input,
+.toolbar-actions select {
+  flex: 1 1 240px;
+  min-width: 160px;
+  padding: var(--space-2) var(--space-3);
+}
+.toolbar-actions .actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* tabelas responsivas */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.table-responsive table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px; /* permite rolar em telas pequenas */
+}
+.table-responsive th,
+.table-responsive td {
+  text-align: left;
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* formularios */
+form {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 800px;
+}
+form label {
+  display: block;
+  margin-bottom: var(--space-2);
+}
+form input,
+form select,
+form textarea,
+form button {
+  width: 100%;
+  padding: var(--space-3);
+  box-sizing: border-box;
+}
+.form-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* grupos do relatorio */
+.group {
+  margin: var(--space-5) 0;
+}
+.group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.group-header h2 {
+  margin: 0;
+}
+
+/* utilitarios */
+.loading { opacity: 0.8; }
+.error { color: #b91c1c; }
+
+/* breakpoints */
+@media (max-width: 768px) {
+  .app-header .container { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+  .app-header nav { flex-wrap: wrap; }
+  .toolbar-actions { flex-direction: column; align-items: stretch; }
+  .toolbar-actions .actions { width: 100%; }
+}
