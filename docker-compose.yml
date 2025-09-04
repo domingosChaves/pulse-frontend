@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: pulse-frontend:latest
+    ports:
+      - "3000:80"
+    # Se você subir o backend junto neste compose, descomente a dependência abaixo
+    # depends_on:
+    #   - backend
+
+  # Exemplo (comentado) de serviço backend no mesmo network
+  # Ajuste para o seu backend real e descomente para subir junto
+  # backend:
+  #   image: pulse-backend:latest
+  #   # ou use build para apontar para o diretório do backend
+  #   # build:
+  #   #   context: ../pulse-backend
+  #   #   dockerfile: Dockerfile
+  #   environment:
+  #     - TZ=America/Sao_Paulo
+  #   ports:
+  #     - "8081:8081"

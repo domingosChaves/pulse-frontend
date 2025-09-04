@@ -1,11 +1,14 @@
 <div class="container">
-  <h1>{{ id ? 'Editar produto' : 'Novo produto' }}</h1>
+  <h1>{{ id ? "Editar produto" : "Novo produto" }}</h1>
 
   <form [formGroup]="form" (ngSubmit)="submit()">
     <div>
       <label>Nome *</label>
       <input formControlName="nome" placeholder="Nome do produto" />
-      <div class="error" *ngIf="nome?.invalid && (nome?.dirty || nome?.touched)">
+      <div
+        class="error"
+        *ngIf="nome?.invalid && (nome?.dirty || nome?.touched)"
+      >
         <span *ngIf="nome?.errors?.required">Nome é obrigatório.</span>
         <span *ngIf="nome?.errors?.maxlength">Máx. 100 caracteres.</span>
       </div>
@@ -13,8 +16,15 @@
 
     <div>
       <label>Descrição</label>
-      <textarea formControlName="descricao" rows="3" placeholder="Descrição"></textarea>
-      <div class="error" *ngIf="descricao?.invalid && (descricao?.dirty || descricao?.touched)">
+      <textarea
+        formControlName="descricao"
+        rows="3"
+        placeholder="Descrição"
+      ></textarea>
+      <div
+        class="error"
+        *ngIf="descricao?.invalid && (descricao?.dirty || descricao?.touched)"
+      >
         <span *ngIf="descricao?.errors?.maxlength">Máx. 500 caracteres.</span>
       </div>
     </div>
@@ -23,10 +33,20 @@
       <label>Fabricante *</label>
       <select formControlName="fabricanteId">
         <option [ngValue]="null">Selecione...</option>
-        <option *ngFor="let f of manufacturers" [ngValue]="f.id">{{ f.nome }}</option>
+        <option *ngFor="let f of manufacturers" [ngValue]="f.id">
+          {{ f.nome }}
+        </option>
       </select>
-      <div class="error" *ngIf="fabricanteId?.invalid && (fabricanteId?.dirty || fabricanteId?.touched)">
-        <span *ngIf="fabricanteId?.errors?.required">Fabricante é obrigatório.</span>
+      <div
+        class="error"
+        *ngIf="
+          fabricanteId?.invalid &&
+          (fabricanteId?.dirty || fabricanteId?.touched)
+        "
+      >
+        <span *ngIf="fabricanteId?.errors?.required"
+          >Fabricante é obrigatório.</span
+        >
       </div>
     </div>
 
@@ -38,4 +58,3 @@
     <div *ngIf="error" class="error">{{ error }}</div>
   </form>
 </div>
-

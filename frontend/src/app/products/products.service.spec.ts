@@ -17,7 +17,10 @@ describe('Serviço de Produtos', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ProductsService, { provide: ApiService, useClass: MockApiService }],
+      providers: [
+        ProductsService,
+        { provide: ApiService, useClass: MockApiService },
+      ],
     });
     service = TestBed.inject(ProductsService);
     api = TestBed.inject(ApiService) as unknown as MockApiService;
@@ -31,7 +34,7 @@ describe('Serviço de Produtos', () => {
     api.get.and.returnValue(of(data));
 
     service.list().subscribe((res) => {
-      expect(api.get).toHaveBeenCalledWith('/products');
+      expect(api.get).toHaveBeenCalledWith('/produtos');
       expect(res.length).toBe(2);
       done();
     });
@@ -42,7 +45,7 @@ describe('Serviço de Produtos', () => {
     api.get.and.returnValue(of(item));
 
     service.get(10).subscribe((res) => {
-      expect(api.get).toHaveBeenCalledWith('/products/10');
+      expect(api.get).toHaveBeenCalledWith('/produtos/10');
       expect(res.id).toBe(10);
       done();
     });
@@ -54,18 +57,22 @@ describe('Serviço de Produtos', () => {
     api.post.and.returnValue(of(created));
 
     service.create(payload).subscribe((res) => {
-      expect(api.post).toHaveBeenCalledWith('/products', payload);
+      expect(api.post).toHaveBeenCalledWith('/produtos', payload);
       expect(res.id).toBe(3);
       done();
     });
   });
 
   it('deve atualizar', (done) => {
-    const payload: Product = { id: 3, nome: 'Editar', fabricanteId: 1 } as Product;
+    const payload: Product = {
+      id: 3,
+      nome: 'Editar',
+      fabricanteId: 1,
+    } as Product;
     api.put.and.returnValue(of(payload));
 
     service.update(3, payload).subscribe((res) => {
-      expect(api.put).toHaveBeenCalledWith('/products/3', payload);
+      expect(api.put).toHaveBeenCalledWith('/produtos/3', payload);
       expect(res.nome).toBe('Editar');
       done();
     });
@@ -75,8 +82,34 @@ describe('Serviço de Produtos', () => {
     api.delete.and.returnValue(of(undefined));
 
     service.delete(4).subscribe((res) => {
-      expect(api.delete).toHaveBeenCalledWith('/products/4');
+      expect(api.delete).toHaveBeenCalledWith('/produtos/4');
       expect(res).toBeUndefined();
+      done();
+    });
+  });
+
+  it('deve paginar produtos (paged)', (done) => {
+    const resp = { content: [], totalElements: 0 };
+    api.get.and.returnValue(of(resp));
+
+    service.paged({ nome: 'Prod', page: 0, size: 10 }).subscribe((res) => {
+      expect(api.get).toHaveBeenCalledWith('/produtos/paged', {
+        nome: 'Prod',
+        page: 0,
+        size: 10,
+      } as any);
+      expect(res).toEqual(resp);
+      done();
+    });
+  });
+
+  it('deve obter relatório de produtos (report)', (done) => {
+    const rel: Record<string, Product[]> = { 'Fab X': [] };
+    api.get.and.returnValue(of(rel));
+
+    service.report().subscribe((res) => {
+      expect(api.get).toHaveBeenCalledWith('/produtos/relatorio');
+      expect(res).toEqual(rel);
       done();
     });
   });

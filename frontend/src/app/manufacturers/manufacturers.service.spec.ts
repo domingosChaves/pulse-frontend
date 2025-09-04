@@ -34,7 +34,7 @@ describe('Serviço de Fabricantes', () => {
     api.get.and.returnValue(of(data));
 
     service.list().subscribe((res) => {
-      expect(api.get).toHaveBeenCalledWith('/manufacturers');
+      expect(api.get).toHaveBeenCalledWith('/fabricantes');
       expect(res.length).toBe(2);
       done();
     });
@@ -45,7 +45,7 @@ describe('Serviço de Fabricantes', () => {
     api.get.and.returnValue(of(item));
 
     service.get(10).subscribe((res) => {
-      expect(api.get).toHaveBeenCalledWith('/manufacturers/10');
+      expect(api.get).toHaveBeenCalledWith('/fabricantes/10');
       expect(res.id).toBe(10);
       done();
     });
@@ -57,19 +57,19 @@ describe('Serviço de Fabricantes', () => {
     api.post.and.returnValue(of(created));
 
     service.create(payload).subscribe((res) => {
-      expect(api.post).toHaveBeenCalledWith('/manufacturers', payload);
+      expect(api.post).toHaveBeenCalledWith('/fabricantes', payload);
       expect(res.id).toBe(3);
       done();
     });
   });
 
   it('deve atualizar', (done) => {
-    const payload: Manufacturer = { id: 3, nome: 'Edit' };
+    const payload: Manufacturer = { id: 3, nome: 'Editar' };
     api.put.and.returnValue(of(payload));
 
     service.update(3, payload).subscribe((res) => {
-      expect(api.put).toHaveBeenCalledWith('/manufacturers/3', payload);
-      expect(res.nome).toBe('Edit');
+      expect(api.put).toHaveBeenCalledWith('/fabricantes/3', payload);
+      expect(res.nome).toBe('Editar');
       done();
     });
   });
@@ -78,7 +78,7 @@ describe('Serviço de Fabricantes', () => {
     api.delete.and.returnValue(of(undefined));
 
     service.delete(4).subscribe((res) => {
-      expect(api.delete).toHaveBeenCalledWith('/manufacturers/4');
+      expect(api.delete).toHaveBeenCalledWith('/fabricantes/4');
       expect(res).toBeUndefined();
       done();
     });
