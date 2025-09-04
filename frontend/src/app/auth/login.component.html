@@ -30,7 +30,8 @@
           class="primary"
           [disabled]="saving || form.invalid"
         >
-          Entrar
+          <span class="spinner" *ngIf="saving" aria-hidden="true"></span>
+          <span>{{ saving ? "Entrando..." : "Entrar" }}</span>
         </button>
       </div>
 
