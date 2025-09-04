@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: pulse-frontend:latest
+    ports:
+      - "8080:80"
+    # Se houver backend, configure o proxy no nginx.conf (comentado no arquivo)
+    # depends_on:
+    #   - backend
+

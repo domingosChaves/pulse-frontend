@@ -1,6 +1,36 @@
 # Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.2.
+Este projeto usa Angular e pode ser executado via Docker/Nginx para produção.
+
+## Executar com Docker
+
+Requisitos: Docker 20+.
+
+Build da imagem (na raiz do repositório):
+
+```
+docker build -t pulse-frontend:latest -f frontend/Dockerfile frontend
+```
+
+Executar o container (porta 8080 -> 80):
+
+```
+docker run --rm -p 8080:80 pulse-frontend:latest
+```
+
+Acesse: http://localhost:8080
+
+## Executar com Docker Compose
+
+Na raiz do repositório:
+
+```
+docker compose up --build
+```
+
+Isso expõe a aplicação em http://localhost:8080.
+
+---
 
 ## Development server
 
