@@ -10,7 +10,9 @@
     "test:coverage": "node scripts/run-tests-with-puppeteer.js",
     "lint": "ng lint",
     "format": "prettier --write \"src/**/*.{ts,html,scss,json,md}\"",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "check:api": "node scripts/check-api.mjs",
+    "check:api:proxy": "node scripts/check-api.mjs --proxy"
   },
   "husky": {
     "hooks": {
