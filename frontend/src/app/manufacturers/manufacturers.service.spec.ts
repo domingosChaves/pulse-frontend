@@ -64,12 +64,12 @@ describe('Serviço de Fabricantes', () => {
   });
 
   it('deve atualizar', (done) => {
-    const payload: Manufacturer = { id: 3, nome: 'Edit' };
+    const payload: Manufacturer = { id: 3, nome: 'Editar' };
     api.put.and.returnValue(of(payload));
 
     service.update(3, payload).subscribe((res) => {
       expect(api.put).toHaveBeenCalledWith('/manufacturers/3', payload);
-      expect(res.nome).toBe('Edit');
+      expect(res.nome).toBe('Editar');
       done();
     });
   });

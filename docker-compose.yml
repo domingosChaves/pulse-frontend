@@ -7,7 +7,19 @@ services:
     image: pulse-frontend:latest
     ports:
       - "8080:80"
-    # Se houver backend, configure o proxy no nginx.conf (comentado no arquivo)
+    # Se você subir o backend junto neste compose, descomente a dependência abaixo
     # depends_on:
     #   - backend
 
+  # Exemplo (comentado) de serviço backend no mesmo network
+  # Ajuste para o seu backend real e descomente para subir junto
+  # backend:
+  #   image: pulse-backend:latest
+  #   # ou use build para apontar para o diretório do backend
+  #   # build:
+  #   #   context: ../pulse-backend
+  #   #   dockerfile: Dockerfile
+  #   environment:
+  #     - TZ=America/Sao_Paulo
+  #   ports:
+  #     - "8080:8080"
