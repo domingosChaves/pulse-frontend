@@ -1,0 +1,76 @@
+<div class="container register">
+  <div class="login-card">
+    <h1>Criar conta</h1>
+    <p class="subtitle">Preencha seus dados para começar</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div>
+        <label for="name">Nome</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          placeholder="Seu nome completo"
+        />
+      </div>
+
+      <div>
+        <label for="email">E-mail</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="voce@exemplo.com"
+        />
+      </div>
+
+      <div>
+        <label for="username">Usuário</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          placeholder="nome de usuário"
+        />
+      </div>
+
+      <div>
+        <label for="password">Senha</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Crie uma senha"
+        />
+      </div>
+
+      <div>
+        <label for="confirm">Confirmar senha</label>
+        <input
+          id="confirm"
+          type="password"
+          formControlName="confirmPassword"
+          placeholder="Repita a senha"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="primary"
+          [disabled]="saving || form.invalid"
+        >
+          <span class="spinner" *ngIf="saving" aria-hidden="true"></span>
+          <span>{{ saving ? "Cadastrando..." : "Cadastrar" }}</span>
+        </button>
+      </div>
+
+      <div class="error" *ngIf="error" role="alert">{{ error }}</div>
+    </form>
+
+    <p class="subtitle" style="margin-top: 16px">
+      Já tem conta?
+      <a routerLink="/login">Entrar</a>
+    </p>
+  </div>
+</div>

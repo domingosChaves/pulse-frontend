@@ -14,6 +14,7 @@ import { ProductFormComponent } from './products/product-form.component';
 import { ProductsReportComponent } from './products/products-report.component';
 import { LoginComponent } from './auth/login.component';
 import { OAuthCallbackComponent } from './auth/oauth-callback.component';
+import { RegisterComponent } from './auth/register.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { OAuthCallbackComponent } from './auth/oauth-callback.component';
     ProductsReportComponent,
     LoginComponent,
     OAuthCallbackComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

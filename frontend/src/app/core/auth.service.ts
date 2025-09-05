@@ -16,6 +16,13 @@ export interface AuthResponse {
   user?: AuthUser;
 }
 
+export interface RegisterPayload {
+  name: string;
+  email: string;
+  username: string;
+  password: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly tokenKey = 'auth_token';
@@ -143,5 +150,27 @@ export class AuthService {
 
   private storeToken(token: string) {
     localStorage.setItem(this.tokenKey, token);
+  }
+
+  register(payload: RegisterPayload): Observable<boolean> {
+    return this.http
+      .post<AuthResponse | { success?: boolean }>(
+        this.url('/auth/register'),
+        payload
+      )
+      .pipe(
+        tap((res: any) => {
+          if (res?.token) {
+            this.storeToken(res.token);
+          }
+        }),
+        switchMap((res: any) => {
+          if (res?.token) {
+            return this.fetchMe().pipe(map(() => true));
+          }
+          return of(!!res?.success);
+        }),
+        catchError(() => of(false))
+      );
   }
 }

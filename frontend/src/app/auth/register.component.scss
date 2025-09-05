@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+.container.register {
+  display: grid;
+  place-items: center;
+  min-height: calc(100vh - 120px);
+  padding: var(--space-6) var(--space-4);
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+}
+.login-card form > div {
+  margin-bottom: var(--space-4);
+}

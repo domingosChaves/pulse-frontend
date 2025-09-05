@@ -114,6 +114,54 @@ BACKEND_UPSTREAM=pulse-backend:8081 docker compose up -d --build
 
 Acesse: `http://localhost:3000`.
 
+## Autenticação e Cadastro (novo)
+
+- Rotas:
+  - /login: login tradicional (usuário/senha) e social (Google/GitHub).
+  - /register: cadastro de usuário (nome, e-mail, usuário, senha e confirmação).
+  - /auth/callback: callback de OAuth para Google/GitHub.
+- Fluxo JWT:
+  - Após login/callback, o backend retorna { token, user }; o token é salvo no localStorage e enviado no header Authorization.
+  - /auth/me retorna o usuário atual; rotas de negócio exigem JWT.
+- Requisitos de backend:
+  - Prefixo /api para todos os endpoints.
+  - OAuth: permitir redirect_uri http://localhost:4200/auth/callback em dev e o domínio/IP público em produção.
+
+## Configuração de API (proxy vs direto)
+
+- Dev com proxy (padrão):
+  - environment.ts → apiBaseUrl: '/api'.
+  - proxy.conf.json: encaminha /api → http://localhost:8081.
+  - Inicie o backend em http://localhost:8081 e rode `npm start` no frontend.
+- Sem proxy (direto):
+  - Ajuste environment.ts → apiBaseUrl: 'http://localhost:8081/api' (ou base do seu backend).
+  - Reinicie o frontend.
+- Se o backend não usa prefixo /api, adicione pathRewrite no proxy.
+
+## Scripts utilitários de diagnóstico (novo)
+
+- Testar endpoints do backend (direto):
+  - `npm run check:api`
+- Testar via proxy do dev server:
+  - `npm run check:api:proxy`
+- Observação: respostas 401 indicam conectividade ok porém sem autenticação; falhas de rede (ECONNREFUSED/timeout) indicam indisponibilidade/porta errada.
+
+## Deploy Docker/Nginx
+
+- Variável BACKEND_UPSTREAM aponta para o backend (host:porta) que atenderá o prefixo /api via Nginx.
+- Exemplos locais:
+  - BACKEND_UPSTREAM=localhost:8081 docker compose up -d --build
+
+## Deploy em AWS (IP público) (novo)
+
+- Frontend e backend em contêineres nas instâncias EC2, expostos por IP público.
+- Configure o container do frontend com:
+  - BACKEND_UPSTREAM="<IP_PUBLICO_BACKEND>:8081"
+- Configure o backend para permitir o frontend público:
+  - CORS Allowed Origin: http://<IP_PUBLICO_FRONT>
+  - OAuth redirect allowlist: http://<IP_PUBLICO_FRONT>/auth/callback
+- Dica: o IP público da EC2 pode ser obtido via metadata service (169.254.169.254) e injetado em variáveis de ambiente no start.
+
 ## Testes e Cobertura
 
 - Unit: `npm run test:coverage`
@@ -172,8 +220,14 @@ Acesse: `http://localhost:3000`.
 - Relatório de Produtos atualizado para usar `.toolbar-actions` e herdar estilos globais; SCSS local simplificado.
 - Tabelas com cabeçalho em fundo sutil e linhas zebradas para melhor leitura.
 
-## Troubleshooting
+## Troubleshooting (atualizado)
 
+- "Error occurred while trying to proxy":
+  - Verifique se o backend responde em http://localhost:8081 (ou BACKEND_UPSTREAM configurado).
+  - Rode `npm run check:api` e/ou `npm run check:api:proxy` para diagnosticar.
+  - Confirme o redirect_uri do OAuth permitido no backend.
+- 401 em todas as rotas:
+  - É esperado sem token; faça login/cadastro para testar rotas protegidas.
 - Backend em porta diferente de `8081`:
   - Dev: ajuste `frontend/proxy.conf.json` (campo `target`).
   - Prod: ajuste `frontend/nginx.conf` (`proxy_pass`).
