@@ -17,6 +17,8 @@
   --primary-hover: #1257a3;
   --bg-muted: #f9fafb;
   --radius: 6px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 /* reset/typografia base (leve) */
@@ -90,6 +92,7 @@ small {
   padding: var(--space-2) var(--space-3);
   border-radius: var(--radius);
   transition: background 0.2s ease;
+  position: relative;
 }
 .app-header nav a:hover,
 .app-header nav a:focus-visible {
@@ -97,6 +100,16 @@ small {
 }
 .app-header nav a.active {
   background: rgba(255, 255, 255, 0.25);
+}
+.app-header nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 4px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
 }
 
 /* barras de ferramentas (busca + acoes) */
@@ -200,11 +213,13 @@ a.button {
   color: var(--text-color);
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  box-shadow: var(--shadow-sm);
 }
 button:hover,
 .btn:hover,
 a.button:hover {
   background: #eef2f7;
+  box-shadow: var(--shadow-md);
 }
 button.primary,
 .btn.primary {
@@ -216,6 +231,60 @@ button.primary:hover,
 .btn.primary:hover {
   background: var(--primary-hover);
   border-color: var(--primary-hover);
+}
+button:disabled,
+.btn:disabled,
+a.button[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(10%);
+}
+
+/* variantes de botões */
+.btn-outline,
+a.button.outline,
+button.outline {
+  background: transparent;
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+.btn-outline:hover,
+a.button.outline:hover,
+button.outline:hover {
+  background: #f8fafc;
+}
+
+.btn-danger,
+a.button.danger,
+button.danger {
+  background: #b91c1c;
+  color: #fff;
+  border-color: #b91c1c;
+}
+.btn-danger:hover,
+a.button.danger:hover,
+button.danger:hover {
+  background: #991b1b;
+  border-color: #991b1b;
+}
+
+/* inputs disabled */
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background: #f5f7fa;
+  color: #9aa4af;
+}
+
+/* utilitários */
+.text-muted {
+  color: var(--muted-color);
+}
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+.shadow-md {
+  box-shadow: var(--shadow-md);
 }
 
 /* grupos do relatorio */
@@ -269,6 +338,23 @@ button,
 a.button {
   min-height: 40px;
   padding: var(--space-2) var(--space-4);
+}
+
+/* spinner global para botoes e carregamentos pequenos */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  border-top-color: rgba(0, 0, 0, 0.45);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* breakpoints */

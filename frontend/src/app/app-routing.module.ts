@@ -8,10 +8,12 @@ import { ProductsReportComponent } from './products/products-report.component';
 import { LoginComponent } from './auth/login.component';
 import { OAuthCallbackComponent } from './auth/oauth-callback.component';
 import { AuthGuard } from './core/auth.guard';
+import { RegisterComponent } from './auth/register.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'manufacturers', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'auth/callback', component: OAuthCallbackComponent },
   {
     path: 'manufacturers',
