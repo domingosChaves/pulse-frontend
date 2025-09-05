@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: pulse-frontend:latest
+    ports:
+      - "3000:80"
+    environment:
+      - BACKEND_UPSTREAM=${BACKEND_UPSTREAM:-host.docker.internal:8081}
+    # Em Linux, se host.docker.internal não resolver, descomente a linha abaixo
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
+    # Se subir o backend no mesmo compose, ajuste o upstream para o nome do serviço e porta, ex.:
+    # environment:
+    #   - BACKEND_UPSTREAM=pulse-backend:8081
+    # depends_on:
+    #   - pulse-backend
+
+  # Exemplo (comentado) de serviço backend no mesmo network
+  # backend:
+  #   image: pulse-backend:latest
+  #   build:
+  #     context: ../pulse-backend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8081:8081"

@@ -1,0 +1,27 @@
+# Ignore reference backend folder
+pulse-backend/
+
+# Node and build (root)
+node_modules/
+dist/
+
+# Angular/Node (frontend project)
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/coverage/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,97 @@
+<div class="container">
+  <h1>Relatório de Produtos</h1>
+
+  <div class="toolbar-actions">
+    <label for="manuf">Fabricante</label>
+    <select
+      id="manuf"
+      [(ngModel)]="selectedManufacturerId"
+      (ngModelChange)="onFilterChange()"
+    >
+      <option [ngValue]="null">Todos</option>
+      <option *ngFor="let f of manufacturers" [ngValue]="f.id">
+        {{ f.nome }}
+      </option>
+    </select>
+
+    <label for="pagesize">Itens por página</label>
+    <select
+      id="pagesize"
+      [(ngModel)]="pageSize"
+      (ngModelChange)="onPageSizeChange()"
+    >
+      <option [ngValue]="5">5</option>
+      <option [ngValue]="10">10</option>
+      <option [ngValue]="20">20</option>
+      <option [ngValue]="50">50</option>
+    </select>
+
+    <div class="actions">
+      <button (click)="exportCsv()">Exportar CSV</button>
+      <button (click)="loadProducts()">Atualizar</button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading" aria-live="polite">Carregando...</div>
+  <div *ngIf="error" class="error" role="alert">{{ error }}</div>
+
+  <div *ngIf="!loading && groups.length === 0" aria-live="polite">
+    Nenhum produto encontrado para o filtro.
+  </div>
+
+  <section
+    *ngFor="let g of groups"
+    class="group"
+    role="region"
+    [attr.aria-labelledby]="
+      'group-title-' + (g.manufacturerId == null ? 'sem' : g.manufacturerId)
+    "
+  >
+    <div class="group-header">
+      <h2
+        [id]="
+          'group-title-' + (g.manufacturerId == null ? 'sem' : g.manufacturerId)
+        "
+      >
+        {{ g.manufacturerName }} <small>({{ g.items.length }} itens)</small>
+      </h2>
+      <button
+        (click)="exportGroupCsv(g.manufacturerId)"
+        [attr.aria-label]="'Exportar CSV do grupo ' + g.manufacturerName"
+      >
+        Exportar CSV (grupo)
+      </button>
+    </div>
+
+    <div class="table-responsive">
+      <table>
+        <caption class="sr-only">
+          Produtos do fabricante
+          {{
+            g.manufacturerName
+          }}
+        </caption>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of pagedItemsForGroup(g.manufacturerId)">
+            <td>{{ p.id }}</td>
+            <td>{{ p.nome }}</td>
+            <td>{{ p.descricao || "-" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <app-pagination
+      [page]="pageForGroup(g.manufacturerId)"
+      [totalPages]="totalPagesForGroup(g.manufacturerId)"
+      (pageChange)="setPageForGroup(g.manufacturerId, $event)"
+    ></app-pagination>
+  </section>
+</div>

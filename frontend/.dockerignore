@@ -1,0 +1,13 @@
+# Excluir dependências locais e artefatos de build/teste do contexto
+node_modules
+.dist
+/dist
+coverage
+.angular
+.e2e
+.git
+.gitignore
+*.log
+npm-debug.log*
+yarn-error.log*
+.env

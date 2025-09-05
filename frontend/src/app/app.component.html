@@ -1,0 +1,26 @@
+<!-- Header da aplicação -->
+<header class="app-header">
+  <div class="container">
+    <h1>Pulse</h1>
+    <nav *ngIf="user$ | async as user; else loggedOut">
+      <a routerLink="/manufacturers" routerLinkActive="active">Fabricantes</a>
+      <a routerLink="/products" routerLinkActive="active">Produtos</a>
+      <a routerLink="/products/report" routerLinkActive="active">Relatório</a>
+      <span style="margin-left: 8px; opacity: 0.9">{{ user.name }}</span>
+      <button type="button" (click)="logout()" style="margin-left: 8px">
+        Sair
+      </button>
+    </nav>
+    <ng-template #loggedOut>
+      <nav>
+        <a routerLink="/login" routerLinkActive="active">Entrar</a>
+        <a routerLink="/register" routerLinkActive="active">Criar conta</a>
+      </nav>
+    </ng-template>
+  </div>
+</header>
+
+<!-- Conteúdo principal -->
+<main class="app-main">
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,68 @@
+<div class="container">
+  <h1>Produtos</h1>
+
+  <div class="toolbar-actions">
+    <label for="search-products" class="sr-only">Buscar por nome</label>
+    <input
+      id="search-products"
+      placeholder="Buscar por nome..."
+      [(ngModel)]="searchTerm"
+    />
+    <div class="actions">
+      <button class="primary" (click)="newProduct()">Novo produto</button>
+      <button (click)="load()">Atualizar</button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading" aria-live="polite">Carregando...</div>
+  <div *ngIf="error" class="error" role="alert">{{ error }}</div>
+
+  <div class="table-responsive" *ngIf="!loading && paged.length">
+    <table>
+      <caption class="sr-only">
+        Lista de produtos
+      </caption>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Fabricante</th>
+          <th>Descrição</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of paged">
+          <td>{{ p.id }}</td>
+          <td>{{ p.nome }}</td>
+          <td>{{ manufacturerName(p) || "-" }}</td>
+          <td>{{ p.descricao || "-" }}</td>
+          <td>
+            <button
+              (click)="edit(p.id)"
+              [attr.aria-label]="'Editar produto ' + (p.nome || p.id)"
+            >
+              Editar
+            </button>
+            <button
+              (click)="confirmDelete(p.id)"
+              [attr.aria-label]="'Excluir produto ' + (p.nome || p.id)"
+            >
+              Excluir
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!loading && filtered.length === 0" aria-live="polite">
+    Nenhum produto encontrado.
+  </div>
+
+  <app-pagination
+    [page]="page"
+    [totalPages]="totalPages"
+    (pageChange)="changePage($event)"
+  ></app-pagination>
+</div>

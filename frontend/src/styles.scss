@@ -1,0 +1,377 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Estilos globais e responsividade */
+
+:root {
+  --container-max: 1200px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --border-color: #e5e7eb;
+  --text-color: #1f2937;
+  --muted-color: #6b7280;
+  --primary: #1976d2;
+  --primary-hover: #1257a3;
+  --bg-muted: #f9fafb;
+  --radius: 6px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* reset/typografia base (leve) */
+html,
+body,
+:host {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: var(--text-color);
+  background: #fff;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: var(--space-4) 0 var(--space-2);
+}
+p {
+  margin: 0 0 var(--space-3);
+}
+small {
+  color: var(--muted-color);
+}
+
+/* layout base */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+  box-sizing: border-box;
+}
+.app-main {
+  padding: var(--space-5) 0;
+}
+
+/* header e navegação */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--primary);
+  color: #fff;
+}
+.app-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+}
+.app-header h1 {
+  font-size: 18px;
+  margin: 0;
+}
+.app-header nav {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.app-header nav a {
+  color: #fff;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius);
+  transition: background 0.2s ease;
+  position: relative;
+}
+.app-header nav a:hover,
+.app-header nav a:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+}
+.app-header nav a.active {
+  background: rgba(255, 255, 255, 0.25);
+}
+.app-header nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 4px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+/* barras de ferramentas (busca + acoes) */
+.toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  margin: var(--space-4) 0;
+}
+.toolbar-actions input[type="text"],
+.toolbar-actions input:not([type]),
+.toolbar-actions input,
+.toolbar-actions select {
+  flex: 1 1 240px;
+  min-width: 160px;
+  padding: var(--space-2) var(--space-3);
+}
+.toolbar-actions .actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* tabelas responsivas */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.table-responsive table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px; /* permite rolar em telas pequenas */
+}
+.table-responsive th,
+.table-responsive td {
+  text-align: left;
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--border-color);
+}
+.table-responsive thead th {
+  background: var(--bg-muted);
+}
+.table-responsive tbody tr:nth-child(even) {
+  background: #fcfcfd;
+}
+
+/* formularios */
+form {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 800px;
+}
+form label {
+  display: block;
+  margin-bottom: var(--space-2);
+}
+form input,
+form select,
+form textarea,
+form button {
+  width: 100%;
+  padding: var(--space-3);
+  box-sizing: border-box;
+}
+.form-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* inputs e controles base */
+input,
+select,
+textarea {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--text-color);
+}
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #0ea5e9;
+  outline-offset: 1px;
+}
+::placeholder {
+  color: var(--muted-color);
+  opacity: 0.9;
+}
+
+/* botoes base */
+button,
+.btn,
+a.button {
+  min-height: 40px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background: #f8fafc;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+button:hover,
+.btn:hover,
+a.button:hover {
+  background: #eef2f7;
+  box-shadow: var(--shadow-md);
+}
+button.primary,
+.btn.primary {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+button.primary:hover,
+.btn.primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+button:disabled,
+.btn:disabled,
+a.button[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(10%);
+}
+
+/* variantes de botões */
+.btn-outline,
+a.button.outline,
+button.outline {
+  background: transparent;
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+.btn-outline:hover,
+a.button.outline:hover,
+button.outline:hover {
+  background: #f8fafc;
+}
+
+.btn-danger,
+a.button.danger,
+button.danger {
+  background: #b91c1c;
+  color: #fff;
+  border-color: #b91c1c;
+}
+.btn-danger:hover,
+a.button.danger:hover,
+button.danger:hover {
+  background: #991b1b;
+  border-color: #991b1b;
+}
+
+/* inputs disabled */
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background: #f5f7fa;
+  color: #9aa4af;
+}
+
+/* utilitários */
+.text-muted {
+  color: var(--muted-color);
+}
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+/* grupos do relatorio */
+.group {
+  margin: var(--space-5) 0;
+}
+.group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.group-header h2 {
+  margin: 0;
+}
+
+/* utilitarios */
+.loading {
+  opacity: 0.8;
+}
+.error {
+  color: #b91c1c;
+}
+
+/* acessibilidade: somente para leitores de tela */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* foco visível em elementos interativos */
+:where(a, button, input, select, textarea, [tabindex="0"])::placeholder {
+  opacity: 0.8;
+}
+:where(a, button, input, select, textarea, [tabindex="0"]):focus-visible {
+  outline: 3px solid #0ea5e9;
+  outline-offset: 2px;
+}
+
+/* alvos de toque maiores */
+button,
+.btn,
+a.button {
+  min-height: 40px;
+  padding: var(--space-2) var(--space-4);
+}
+
+/* spinner global para botoes e carregamentos pequenos */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  border-top-color: rgba(0, 0, 0, 0.45);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* breakpoints */
+@media (max-width: 768px) {
+  .app-header .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+  .app-header nav {
+    flex-wrap: wrap;
+  }
+  .toolbar-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .toolbar-actions .actions {
+    width: 100%;
+  }
+}

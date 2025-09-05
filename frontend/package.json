@@ -1,0 +1,65 @@
+{
+  "name": "frontend",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --proxy-config proxy.conf.json --open",
+    "build": "ng build",
+    "test": "ng test",
+    "test:watch": "ng test",
+    "test:coverage": "node scripts/run-tests-with-puppeteer.js",
+    "lint": "ng lint",
+    "format": "prettier --write \"src/**/*.{ts,html,scss,json,md}\"",
+    "e2e": "ng e2e",
+    "check:api": "node scripts/check-api.mjs",
+    "check:api:proxy": "node scripts/check-api.mjs --proxy"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,html,scss}": [
+      "npm run format",
+      "git add"
+    ]
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^15.2.10",
+    "@angular/common": "^15.2.10",
+    "@angular/compiler": "^15.2.10",
+    "@angular/core": "^15.2.10",
+    "@angular/forms": "^15.2.10",
+    "@angular/platform-browser": "^15.2.10",
+    "@angular/platform-browser-dynamic": "^15.2.10",
+    "@angular/router": "^15.2.10",
+    "rxjs": "^7.8.1",
+    "tslib": "^2.4.0",
+    "zone.js": "~0.12.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^15.2.10",
+    "@angular/cli": "^15.2.10",
+    "@angular/compiler-cli": "^15.2.10",
+    "@types/jasmine": "~4.3.1",
+    "@types/node": "^16.18.11",
+    "codelyzer": "^6.0.0",
+    "husky": "^4.3.8",
+    "jasmine-core": "~4.5.0",
+    "jasmine-spec-reporter": "~7.0.0",
+    "karma": "~6.4.2",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "^2.0.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.0.5",
+    "protractor": "~7.0.0",
+    "puppeteer": "^21.7.0",
+    "ts-node": "~10.9.1",
+    "tslint": "~6.1.0",
+    "typescript": "~4.8.4"
+  }
+}
